@@ -2,12 +2,12 @@
 
     <dbname value="cool_shit" />
 
-    <version value="1" />
+    <version value="2" />
 
     <list>
         <mapping class="com.coolshit.android.db.Province" />
         <mapping class="com.coolshit.android.db.City" />
-        <mipping class="com.coolshit.android.db.County" />
+        <mapping class="com.coolshit.android.db.County" />
     </list>
 
 </litepal>

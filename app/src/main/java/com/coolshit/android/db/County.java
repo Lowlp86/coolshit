@@ -2,10 +2,6 @@ package com.coolshit.android.db;
 
 import org.litepal.crud.DataSupport;
 
-/**
- * Created by HP on 2018/2/10.
- */
-
 public class County extends DataSupport {
 
     private int id;
@@ -47,4 +43,5 @@ public class County extends DataSupport {
     public void setCityId(int cityId) {
         this.cityId = cityId;
     }
+
 }

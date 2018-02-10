@@ -31,7 +31,9 @@ public class Utility {
         return false;
     }
 
-    //解析處理服務器返回的市級數據
+    /**
+     * 解析和处理服务器返回的市级数据
+     */
     public static boolean handleCityResponse(String response, int provinceId) {
         if (!TextUtils.isEmpty(response)) {
             try {
@@ -52,7 +54,9 @@ public class Utility {
         return false;
     }
 
-    //解析處理服務器返迴的縣級數據
+    /**
+     * 解析和处理服务器返回的县级数据
+     */
     public static boolean handleCountyResponse(String response, int cityId) {
         if (!TextUtils.isEmpty(response)) {
             try {

@@ -1,13 +1,9 @@
 package com.coolshit.android.db;
 
-
 import org.litepal.crud.DataSupport;
 
-/**
- * Created by HP on 2018/2/10.
- */
-
 public class Province extends DataSupport {
+
     private int id;
 
     private String provinceName;
