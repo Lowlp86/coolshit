@@ -10,10 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by HP on 2018/2/10.
- */
-
 public class Utility {
     //解析處理服務器返迴的省級數據
     public static boolean handleProvinceResponse(String response) {

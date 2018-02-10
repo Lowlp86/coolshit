@@ -1,5 +1,6 @@
 package com.coolshit.android;
 
+
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,10 +30,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-/**
- * Created by HP on 2018/2/10.
- */
-
 public class ChooseAreaFragment extends Fragment {
 
     public static final int LEVEL_PROVINCE = 0;
@@ -53,22 +50,34 @@ public class ChooseAreaFragment extends Fragment {
 
     private List<String> dataList = new ArrayList<>();
 
-    //省列表
+    /**
+     * 省列表
+     */
     private List<Province> provinceList;
 
-    //市列表
+    /**
+     * 市列表
+     */
     private List<City> cityList;
 
-    //縣列表
+    /**
+     * 县列表
+     */
     private List<County> countyList;
 
-    //選中的省份
+    /**
+     * 选中的省份
+     */
     private Province selectedProvince;
 
-    //選中的城市
+    /**
+     * 选中的城市
+     */
     private City selectedCity;
 
-    //當前選中的級別
+    /**
+     * 当前选中的级别
+     */
     private int currentLevel;
 
     @Override
@@ -101,7 +110,7 @@ public class ChooseAreaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (currentLevel == LEVEL_COUNTY) {
-                    queryCounties();
+                    queryCities();
                 } else if (currentLevel == LEVEL_CITY) {
                     queryProvinces();
                 }
@@ -133,8 +142,7 @@ public class ChooseAreaFragment extends Fragment {
     private void queryCities() {
         titleText.setText(selectedProvince.getProvinceName());
         backButton.setVisibility(View.VISIBLE);
-        cityList = DataSupport.where("provinceid = ?",
-                String.valueOf(selectedProvince.getId())).find(City.class);
+        cityList = DataSupport.where("provinceid = ?", String.valueOf(selectedProvince.getId())).find(City.class);
         if (cityList.size() > 0) {
             dataList.clear();
             for (City city : cityList) {
@@ -144,8 +152,8 @@ public class ChooseAreaFragment extends Fragment {
             listView.setSelection(0);
             currentLevel = LEVEL_CITY;
         } else {
-            int privinceCode = selectedProvince.getProvinceCode();
-            String address = "http://guolin.tech/api/china/" + privinceCode;
+            int provinceCode = selectedProvince.getProvinceCode();
+            String address = "http://guolin.tech/api/china/" + provinceCode;
             queryFromServer(address, "city");
         }
     }
@@ -154,8 +162,7 @@ public class ChooseAreaFragment extends Fragment {
     private void queryCounties() {
         titleText.setText(selectedCity.getCityName());
         backButton.setVisibility(View.VISIBLE);
-        countyList = DataSupport.where("cityid = ?",
-                String.valueOf(selectedCity.getId())).find(County.class);
+        countyList = DataSupport.where("cityid = ?", String.valueOf(selectedCity.getId())).find(County.class);
         if (countyList.size() > 0) {
             dataList.clear();
             for (County county : countyList) {
@@ -174,7 +181,6 @@ public class ChooseAreaFragment extends Fragment {
 
     //根據傳入的地址和類型從服務器上查詢省市縣數據
     private void queryFromServer(String address, final String type) {
-        showProgressDialog();
         HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -192,7 +198,7 @@ public class ChooseAreaFragment extends Fragment {
                         @Override
                         public void run() {
                             closeProgressDialog();
-                            if ("provice".equals(type)) {
+                            if ("province".equals(type)) {
                                 queryProvinces();
                             } else if ("city".equals(type)) {
                                 queryCities();
@@ -206,26 +212,16 @@ public class ChooseAreaFragment extends Fragment {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                //通過 runOnUiThread() 方法回到主綫程處理邏輯
+                // 通过runOnUiThread()方法回到主线程处理逻辑
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         closeProgressDialog();
-                        Toast.makeText(getContext(), "加載失敗", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "加载失败", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
-    }
-
-    //顯示進度對話框
-    private void showProgressDialog() {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setMessage("正在加載。。。");
-            progressDialog.setCanceledOnTouchOutside(false);
-        }
-        progressDialog.show();
     }
 
     //關閉進度對話框
