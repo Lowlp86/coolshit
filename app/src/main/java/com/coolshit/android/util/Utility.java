@@ -36,7 +36,7 @@ public class Utility {
     }
 
     //解析處理服務器返回的市級數據
-    public static boolean gandleCityResponse(String response, int provinceId) {
+    public static boolean handleCityResponse(String response, int provinceId) {
         if (!TextUtils.isEmpty(response)) {
             try {
                 JSONArray allCities = new JSONArray(response);
