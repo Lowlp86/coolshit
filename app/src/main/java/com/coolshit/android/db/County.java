@@ -6,7 +6,7 @@ import org.litepal.crud.DataSupport;
  * Created by HP on 2018/2/10.
  */
 
-public class Couty extends DataSupport {
+public class County extends DataSupport {
 
     private int id;
 
