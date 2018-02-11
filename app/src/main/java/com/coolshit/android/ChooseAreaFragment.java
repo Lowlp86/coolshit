@@ -2,6 +2,7 @@ package com.coolshit.android;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -109,6 +110,16 @@ public class ChooseAreaFragment extends Fragment {
                     //定義/修改選中的城市
                     queryCounties();
                     //調用queryCounties方法加載Counties數據
+                } else if (currentLevel == LEVEL_COUNTY) {
+                    String weatherId = countyList.get(position).getWeatherId();
+                    //定義天氣id
+                    Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                    intent.putExtra("weather_id", weatherId);
+                    //把天氣id傳到intent
+                    startActivity(intent);
+                    //調到WeatherActivity頁面
+                    getActivity().finish();
+
                 }
             }
         });
