@@ -112,13 +112,20 @@ public class ChooseAreaFragment extends Fragment {
                     //調用queryCounties方法加載Counties數據
                 } else if (currentLevel == LEVEL_COUNTY) {
                     String weatherId = countyList.get(position).getWeatherId();
-                    //定義天氣id
-                    Intent intent = new Intent(getActivity(), WeatherActivity.class);
-                    intent.putExtra("weather_id", weatherId);
-                    //把天氣id傳到intent
-                    startActivity(intent);
-                    //調到WeatherActivity頁面
-                    getActivity().finish();
+                    if (getActivity() instanceof MainActivity) {
+                        //定義天氣id
+                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                        intent.putExtra("weather_id", weatherId);
+                        //把天氣id傳到intent
+                        startActivity(intent);
+                        //調到WeatherActivity頁面
+                        getActivity().finish();
+                    } else if (getActivity() instanceof WeatherActivity) {
+                        WeatherActivity activity = (WeatherActivity) getActivity();
+                        activity.drawerLayout.closeDrawers();
+                        activity.swipeRefresh.setRefreshing(true);
+                        activity.requestWeather(weatherId);
+                    }
 
                 }
             }
