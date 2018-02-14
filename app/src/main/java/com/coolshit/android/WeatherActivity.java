@@ -1,5 +1,6 @@
 package com.coolshit.android;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.coolshit.android.gson.Forecast;
 import com.coolshit.android.gson.Weather;
+import com.coolshit.android.service.AutoUpdateService;
 import com.coolshit.android.util.HttpUtil;
 import com.coolshit.android.util.Utility;
 
@@ -253,5 +255,8 @@ public class WeatherActivity extends AppCompatActivity {
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
         //設置完成之後， 將ScrollView重新設爲可見
+
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 }
